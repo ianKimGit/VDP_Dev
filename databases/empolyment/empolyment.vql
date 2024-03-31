@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE DATABASE empolyment '';
+
+ALTER DATABASE empolyment
+  CHARSET DEFAULT;
+
