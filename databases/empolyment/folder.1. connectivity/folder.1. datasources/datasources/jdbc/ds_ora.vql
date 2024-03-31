@@ -23,10 +23,10 @@ CREATE OR REPLACE DATASOURCE JDBC ds_ora
     MINEVICTABLETIME = 1800000
     POOLPREPAREDSTATEMENTS = false
     MAXOPENPREPAREDSTATEMENTS = -1
-    PROPERTIES ('includeSynonyms'='false', 'remarksReporting'='false')
+    PROPERTIES ('remarksReporting'='false', 'includeSynonyms'='false')
     KERBEROSPROPERTIES ('oracle.net.authentication_services'='KERBEROS5')
     DATA_LOAD_CONFIGURATION (
         BATCHINSERTSIZE = 200
     )
-    DESCRIPTION  = 'Data source for DV_DEMO oracle';
+    DESCRIPTION  = 'Data source for DV_DEMO oracle tablespace';
 
