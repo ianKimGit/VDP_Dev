@@ -1,0 +1,9 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE LDAP ds_ldap
+    URI='${databases.admin.datasources.ldap.ds_ldap.URI}'
+    USERNAME='${databases.admin.datasources.ldap.ds_ldap.USERNAME}'
+    USERPASSWORD='${databases.admin.datasources.ldap.ds_ldap.USERPASSWORD}' ${databases.admin.datasources.ldap.ds_ldap.USERPASSWORD.ENCRYPTED}
+    USEPAGING=FALSE
+    MAXPAGESIZE=1000
+    POOL_ENABLED = TRUE;
+

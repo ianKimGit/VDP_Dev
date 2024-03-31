@@ -1,0 +1,14 @@
+﻿ALTER DATABASE admin
+  CHARSET DEFAULT;
+
+ALTER DATABASE admin
+  AUTHENTICATION LDAP admin.ldap_data_source
+    USERBASE = 'OU=Users, DC=denodo,DC=loc'
+    USERATTRIBUTENAME = 'uid'
+    USERSEARCH = '(&(objectClass=person))'
+    ROLEBASE = 'OU=groups,DC=denodo,dc=loc'
+    ROLEATTRIBUTENAME = 'cn'
+    ROLESEARCH = '(&(objectClass=groupOfNames)(member=@{{USERDN}}))'
+    ROLESSEARCHAUTHENTICATION
+    WITH_ALLUSERS_ROLE;
+
