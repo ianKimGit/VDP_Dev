@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE DATABASE training '';
+
+ALTER DATABASE training
+  CHARSET DEFAULT;
+
