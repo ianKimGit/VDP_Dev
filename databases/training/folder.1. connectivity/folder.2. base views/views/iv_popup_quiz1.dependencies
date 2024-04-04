@@ -1,0 +1,7 @@
+﻿/databases/training/folder.1. connectivity/1. connectivity.vql
+/databases/training/folder.1. connectivity/folder.2. base views/2. base views.vql
+/databases/training/folder.1. connectivity/folder.1. datasources/1. datasources.vql
+/databases/training/folder.1. connectivity/folder.1. datasources/datasources/jdbc/ds_oracle.vql
+/databases/training/folder.1. connectivity/folder.2. base views/views/bv_o_inventory_fact.vql
+/databases/training/folder.1. connectivity/folder.1. datasources/datasources/jdbc/ds_oracle_2.vql
+/databases/training/folder.1. connectivity/folder.2. base views/views/bv_o2_warehouse_dimension.vql

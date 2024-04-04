@@ -1,0 +1,28 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC remote_store_sales_fact
+    FOLDER = '/5. report views'
+    DATASOURCENAME=ds_mssql2019
+    CATALOGNAME='${databases.training.folder.5.. report views.views.jdbc.remote_store_sales_fact.CATALOGNAME}' 
+    SCHEMANAME='${databases.training.folder.5.. report views.views.jdbc.remote_store_sales_fact.SCHEMANAME}' 
+    RELATIONNAME='remote_table_sales_fact_today' 
+    OUTPUTSCHEMA (
+        employee_key = 'employee_key' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int')  SORTABLE
+    );
+
+CREATE OR REPLACE TABLE remote_store_sales_fact I18N us_pst (
+        employee_key:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10')
+    )
+    FOLDER = '/5. report views'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD remote_store_sales_fact(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD employee_key (any) OPT ANY
+        )
+        OUTPUTLIST (employee_key
+        )
+        WRAPPER (jdbc remote_store_sales_fact)
+    )
+    DATA_LOAD_QUERY = 'select employee_key from bv_store_sales_fact';
+

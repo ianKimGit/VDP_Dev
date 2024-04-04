@@ -1,0 +1,44 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_o_inventory_fact
+    FOLDER = '/1. connectivity/2. base views'
+    DATASOURCENAME=ds_oracle
+    SCHEMANAME='${databases.training.folder.1.. connectivity.folder.2.. base views.views.jdbc.bv_o_inventory_fact.SCHEMANAME}' 
+    RELATIONNAME='INVENTORY_FACT' 
+    OUTPUTSCHEMA (
+        date_key = 'DATE_KEY' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='3', sourcetypename='NUMBER')  NOT NULL SORTABLE,
+        product_key = 'PRODUCT_KEY' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='3', sourcetypename='NUMBER')  NOT NULL SORTABLE,
+        product_version = 'PRODUCT_VERSION' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='3', sourcetypename='NUMBER')  NOT NULL SORTABLE,
+        warehouse_key = 'WAREHOUSE_KEY' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='3', sourcetypename='NUMBER')  NOT NULL SORTABLE,
+        qty_in_stock = 'QTY_IN_STOCK' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='3', sourcetypename='NUMBER')  SORTABLE
+    )
+    CONSTRAINT 'FK_INVENTORY_DATE' FOREIGN KEY ( 'DATE_KEY' ) 
+    REFERENCES 'DVDEMO'.'DATE_DIMENSION'( 'DATE_KEY' )  ON DELETE RESTRICT NOT DEFERRABLE 
+    CONSTRAINT 'FK_INVENTORY_PRODUCT' FOREIGN KEY ( 'PRODUCT_KEY' , 'PRODUCT_VERSION' ) 
+    REFERENCES 'DVDEMO'.'PRODUCT_DIMENSION'( 'PRODUCT_KEY' , 'PRODUCT_VERSION' )  ON DELETE RESTRICT NOT DEFERRABLE 
+    CONSTRAINT 'FK_INVENTORY_WAREHOUSE' FOREIGN KEY ( 'WAREHOUSE_KEY' ) 
+    REFERENCES 'DVDEMO'.'WAREHOUSE_DIMENSION'( 'WAREHOUSE_KEY' )  ON DELETE RESTRICT NOT DEFERRABLE ;
+
+CREATE OR REPLACE TABLE bv_o_inventory_fact I18N us_pst (
+        date_key:decimal (notnull, sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38'),
+        product_key:decimal (notnull, sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38'),
+        product_version:decimal (notnull, sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38'),
+        warehouse_key:decimal (notnull, sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38'),
+        qty_in_stock:decimal (sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38')
+    )
+    FOLDER = '/1. connectivity/2. base views'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_o_inventory_fact(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD date_key (any) OPT ANY
+             ADD product_key (any) OPT ANY
+             ADD product_version (any) OPT ANY
+             ADD warehouse_key (any) OPT ANY
+             ADD qty_in_stock (any) OPT ANY
+        )
+        OUTPUTLIST (date_key, product_key, product_version, qty_in_stock, warehouse_key
+        )
+        WRAPPER (jdbc bv_o_inventory_fact)
+    );
+

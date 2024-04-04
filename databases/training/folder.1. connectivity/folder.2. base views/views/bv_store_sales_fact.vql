@@ -1,0 +1,69 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_store_sales_fact
+    FOLDER = '/1. connectivity/2. base views'
+    DATASOURCENAME=ds_mssql2019
+    CATALOGNAME='${databases.training.folder.1.. connectivity.folder.2.. base views.views.jdbc.bv_store_sales_fact.CATALOGNAME}' 
+    SCHEMANAME='${databases.training.folder.1.. connectivity.folder.2.. base views.views.jdbc.bv_store_sales_fact.SCHEMANAME}' 
+    RELATIONNAME='STORE_SALES_FACT' 
+    OUTPUTSCHEMA (
+        date_key = 'DATE_KEY' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int')  NOT NULL SORTABLE,
+        product_key = 'PRODUCT_KEY' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int')  NOT NULL SORTABLE,
+        product_version = 'PRODUCT_VERSION' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int')  NOT NULL SORTABLE,
+        store_key = 'STORE_KEY' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int')  NOT NULL SORTABLE,
+        promotion_key = 'PROMOTION_KEY' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int')  NOT NULL SORTABLE,
+        customer_key = 'CUSTOMER_KEY' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int')  NOT NULL SORTABLE,
+        employee_key = 'EMPLOYEE_KEY' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int')  NOT NULL SORTABLE,
+        pos_transaction_number = 'POS_TRANSACTION_NUMBER' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int')  NOT NULL SORTABLE,
+        sales_quantity = 'SALES_QUANTITY' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int')  SORTABLE,
+        sales_dollar_amount = 'SALES_DOLLAR_AMOUNT' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int')  SORTABLE,
+        cost_dollar_amount = 'COST_DOLLAR_AMOUNT' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int')  SORTABLE,
+        gross_profit_dollar_amount = 'GROSS_PROFIT_DOLLAR_AMOUNT' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int')  SORTABLE,
+        transaction_type = 'TRANSACTION_TYPE' :'java.lang.String' (OPT) (sourcetypesize='16', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        transaction_time = 'TRANSACTION_TIME' :'java.lang.String' (OPT) (sourcetypesize='10', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        tender_type = 'TENDER_TYPE' :'java.lang.String' (OPT) (sourcetypesize='8', sourcetypeid='12', sourcetypename='varchar')  SORTABLE
+    );
+
+CREATE OR REPLACE TABLE bv_store_sales_fact I18N us_pst (
+        date_key:int (notnull, sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        product_key:int (notnull, sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        product_version:int (notnull, sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        store_key:int (notnull, sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        promotion_key:int (notnull, sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        customer_key:int (notnull, sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        employee_key:int (notnull, sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        pos_transaction_number:int (notnull, sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        sales_quantity:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        sales_dollar_amount:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        cost_dollar_amount:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        gross_profit_dollar_amount:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        transaction_type:text (sourcetypeid = '12', sourcetypesize = '16'),
+        transaction_time:text (sourcetypeid = '12', sourcetypesize = '10'),
+        tender_type:text (sourcetypeid = '12', sourcetypesize = '8')
+    )
+    FOLDER = '/1. connectivity/2. base views'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_store_sales_fact(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD date_key (any) OPT ANY
+             ADD product_key (any) OPT ANY
+             ADD product_version (any) OPT ANY
+             ADD store_key (any) OPT ANY
+             ADD promotion_key (any) OPT ANY
+             ADD customer_key (any) OPT ANY
+             ADD employee_key (any) OPT ANY
+             ADD pos_transaction_number (any) OPT ANY
+             ADD sales_quantity (any) OPT ANY
+             ADD sales_dollar_amount (any) OPT ANY
+             ADD cost_dollar_amount (any) OPT ANY
+             ADD gross_profit_dollar_amount (any) OPT ANY
+             ADD transaction_type (any) OPT ANY
+             ADD transaction_time (any) OPT ANY
+             ADD tender_type (any) OPT ANY
+        )
+        OUTPUTLIST (cost_dollar_amount, customer_key, date_key, employee_key, gross_profit_dollar_amount, pos_transaction_number, product_key, product_version, promotion_key, sales_dollar_amount, sales_quantity, store_key, tender_type, transaction_time, transaction_type
+        )
+        WRAPPER (jdbc bv_store_sales_fact)
+    );
+

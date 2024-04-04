@@ -1,0 +1,62 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_o_promotion_dimension
+    FOLDER = '/1. connectivity/2. base views'
+    DATASOURCENAME=ds_oracle
+    SCHEMANAME='${databases.training.folder.1.. connectivity.folder.2.. base views.views.jdbc.bv_o_promotion_dimension.SCHEMANAME}' 
+    RELATIONNAME='PROMOTION_DIMENSION' 
+    OUTPUTSCHEMA (
+        promotion_key = 'PROMOTION_KEY' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='3', sourcetypename='NUMBER')  NOT NULL SORTABLE,
+        promotion_name = 'PROMOTION_NAME' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='128', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        price_reduction_type = 'PRICE_REDUCTION_TYPE' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='32', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        promotion_media_type = 'PROMOTION_MEDIA_TYPE' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='32', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        ad_type = 'AD_TYPE' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='32', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        display_type = 'DISPLAY_TYPE' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='32', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        coupon_type = 'COUPON_TYPE' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='32', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        ad_media_name = 'AD_MEDIA_NAME' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='32', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        display_provider = 'DISPLAY_PROVIDER' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='128', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        promotion_cost = 'PROMOTION_COST' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='3', sourcetypename='NUMBER')  SORTABLE,
+        promotion_begin_date = 'PROMOTION_BEGIN_DATE' :'java.time.LocalDateTime' (OPT) (sourcetyperadix='10', sourcetypesize='7', sourcetypeid='93', sourcetypename='DATE')  SORTABLE,
+        promotion_end_date = 'PROMOTION_END_DATE' :'java.time.LocalDateTime' (OPT) (sourcetyperadix='10', sourcetypesize='7', sourcetypeid='93', sourcetypename='DATE')  SORTABLE
+    )
+    CONSTRAINT 'SYS_C007514' PRIMARY KEY ( 'PROMOTION_KEY' )
+    INDEX 'SYS_C007514' CLUSTER UNIQUE PRIMARY ( 'PROMOTION_KEY' );
+
+CREATE OR REPLACE TABLE bv_o_promotion_dimension I18N us_pst (
+        promotion_key:decimal (notnull, sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38'),
+        promotion_name:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '128'),
+        price_reduction_type:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '32'),
+        promotion_media_type:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '32'),
+        ad_type:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '32'),
+        display_type:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '32'),
+        coupon_type:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '32'),
+        ad_media_name:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '32'),
+        display_provider:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '128'),
+        promotion_cost:decimal (sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38'),
+        promotion_begin_date:timestamp (sourcetypeid = '93', sourcetyperadix = '10', sourcetypesize = '7'),
+        promotion_end_date:timestamp (sourcetypeid = '93', sourcetyperadix = '10', sourcetypesize = '7')
+    )
+    FOLDER = '/1. connectivity/2. base views'
+    CONSTRAINT 'SYS_C007514' PRIMARY KEY ( 'promotion_key' )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_o_promotion_dimension(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD promotion_key (any) OPT ANY
+             ADD promotion_name (any) OPT ANY
+             ADD price_reduction_type (any) OPT ANY
+             ADD promotion_media_type (any) OPT ANY
+             ADD ad_type (any) OPT ANY
+             ADD display_type (any) OPT ANY
+             ADD coupon_type (any) OPT ANY
+             ADD ad_media_name (any) OPT ANY
+             ADD display_provider (any) OPT ANY
+             ADD promotion_cost (any) OPT ANY
+             ADD promotion_begin_date (any) OPT ANY
+             ADD promotion_end_date (any) OPT ANY
+        )
+        OUTPUTLIST (ad_media_name, ad_type, coupon_type, display_provider, display_type, price_reduction_type, promotion_begin_date, promotion_cost, promotion_end_date, promotion_key, promotion_media_type, promotion_name
+        )
+        WRAPPER (jdbc bv_o_promotion_dimension)
+    );
+

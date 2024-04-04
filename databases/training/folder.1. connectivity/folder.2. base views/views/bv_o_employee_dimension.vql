@@ -1,0 +1,94 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_o_employee_dimension
+    FOLDER = '/1. connectivity/2. base views'
+    DATASOURCENAME=ds_oracle
+    SCHEMANAME='${databases.training.folder.1.. connectivity.folder.2.. base views.views.jdbc.bv_o_employee_dimension.SCHEMANAME}' 
+    RELATIONNAME='EMPLOYEE_DIMENSION' 
+    OUTPUTSCHEMA (
+        employee_key = 'EMPLOYEE_KEY' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='3', sourcetypename='NUMBER')  NOT NULL SORTABLE,
+        employee_gender = 'EMPLOYEE_GENDER' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='8', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        courtesy_title = 'COURTESY_TITLE' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='8', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        employee_first_name = 'EMPLOYEE_FIRST_NAME' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='64', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        employee_middle_initial = 'EMPLOYEE_MIDDLE_INITIAL' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='8', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        employee_last_name = 'EMPLOYEE_LAST_NAME' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='64', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        employee_age = 'EMPLOYEE_AGE' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='3', sourcetypename='NUMBER')  SORTABLE,
+        hire_date = 'HIRE_DATE' :'java.time.LocalDateTime' (OPT) (sourcetyperadix='10', sourcetypesize='7', sourcetypeid='93', sourcetypename='DATE')  SORTABLE,
+        employee_street_address = 'EMPLOYEE_STREET_ADDRESS' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='256', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        employee_city = 'EMPLOYEE_CITY' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='64', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        employee_state = 'EMPLOYEE_STATE' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='2', sourcetypeid='1', sourcetypename='CHAR')  SORTABLE,
+        employee_region = 'EMPLOYEE_REGION' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='32', sourcetypeid='1', sourcetypename='CHAR')  SORTABLE,
+        job_title = 'JOB_TITLE' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='64', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        reports_to = 'REPORTS_TO' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='3', sourcetypename='NUMBER')  SORTABLE,
+        salaried_flag = 'SALARIED_FLAG' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='3', sourcetypename='NUMBER')  SORTABLE,
+        annual_salary = 'ANNUAL_SALARY' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='3', sourcetypename='NUMBER')  SORTABLE,
+        hourly_rate = 'HOURLY_RATE' :'java.lang.Double' (OPT) (sourcetyperadix='10', sourcetypesize='126', sourcetypeid='6', sourcetypename='FLOAT')  SORTABLE,
+        vacation_days = 'VACATION_DAYS' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='3', sourcetypename='NUMBER')  SORTABLE
+    )
+    CONSTRAINT 'SYS_C007520' PRIMARY KEY ( 'EMPLOYEE_KEY' )
+    INDEX 'SYS_C007520' CLUSTER UNIQUE PRIMARY ( 'EMPLOYEE_KEY' )
+    INDEX 'IDX_ANNUAL_SALARY' CLUSTER ( 'ANNUAL_SALARY' )
+    INDEX 'IDX_COURTESY_TITLE' CLUSTER ( 'COURTESY_TITLE' )
+    INDEX 'IDX_EMPLOYEE_AGE' CLUSTER ( 'EMPLOYEE_AGE' )
+    INDEX 'IDX_EMPLOYEE_CITY' CLUSTER ( 'EMPLOYEE_CITY' )
+    INDEX 'IDX_EMPLOYEE_FIRST_NAME' CLUSTER ( 'EMPLOYEE_FIRST_NAME' )
+    INDEX 'IDX_EMPLOYEE_GENDER' CLUSTER ( 'EMPLOYEE_GENDER' )
+    INDEX 'IDX_EMPLOYEE_LAST_NAME' CLUSTER ( 'EMPLOYEE_LAST_NAME' )
+    INDEX 'IDX_EMPLOYEE_REGION' CLUSTER ( 'EMPLOYEE_REGION' )
+    INDEX 'IDX_EMPLOYEE_STATE' CLUSTER ( 'EMPLOYEE_STATE' )
+    INDEX 'IDX_HIRE_DATE' CLUSTER ( 'HIRE_DATE' )
+    INDEX 'IDX_JOB_TITLE' CLUSTER ( 'JOB_TITLE' )
+    INDEX 'IDX_REPORTS_TO' CLUSTER ( 'REPORTS_TO' )
+    INDEX 'IDX_SALARIED_FLAG' CLUSTER ( 'SALARIED_FLAG' )
+    INDEX 'IDX_VACATION_DAYS' CLUSTER ( 'VACATION_DAYS' );
+
+CREATE OR REPLACE TABLE bv_o_employee_dimension I18N us_pst (
+        employee_key:decimal (notnull, sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38'),
+        employee_gender:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '8'),
+        courtesy_title:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '8'),
+        employee_first_name:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '64'),
+        employee_middle_initial:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '8'),
+        employee_last_name:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '64'),
+        employee_age:decimal (sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38'),
+        hire_date:timestamp (sourcetypeid = '93', sourcetyperadix = '10', sourcetypesize = '7'),
+        employee_street_address:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '256'),
+        employee_city:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '64'),
+        employee_state:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypesize = '2'),
+        employee_region:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypesize = '32'),
+        job_title:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '64'),
+        reports_to:decimal (sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38'),
+        salaried_flag:decimal (sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38'),
+        annual_salary:decimal (sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38'),
+        hourly_rate:double (sourcetypeid = '8', sourcetyperadix = '10', sourcetypesize = '126'),
+        vacation_days:decimal (sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38')
+    )
+    FOLDER = '/1. connectivity/2. base views'
+    CONSTRAINT 'SYS_C007520' PRIMARY KEY ( 'employee_key' )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_o_employee_dimension(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD employee_key (any) OPT ANY
+             ADD employee_gender (any) OPT ANY
+             ADD courtesy_title (any) OPT ANY
+             ADD employee_first_name (any) OPT ANY
+             ADD employee_middle_initial (any) OPT ANY
+             ADD employee_last_name (any) OPT ANY
+             ADD employee_age (any) OPT ANY
+             ADD hire_date (any) OPT ANY
+             ADD employee_street_address (any) OPT ANY
+             ADD employee_city (any) OPT ANY
+             ADD employee_state (any) OPT ANY
+             ADD employee_region (any) OPT ANY
+             ADD job_title (any) OPT ANY
+             ADD reports_to (any) OPT ANY
+             ADD salaried_flag (any) OPT ANY
+             ADD annual_salary (any) OPT ANY
+             ADD hourly_rate (any) OPT ANY
+             ADD vacation_days (any) OPT ANY
+        )
+        OUTPUTLIST (annual_salary, courtesy_title, employee_age, employee_city, employee_first_name, employee_gender, employee_key, employee_last_name, employee_middle_initial, employee_region, employee_state, employee_street_address, hire_date, hourly_rate, job_title, reports_to, salaried_flag, vacation_days
+        )
+        WRAPPER (jdbc bv_o_employee_dimension)
+    );
+

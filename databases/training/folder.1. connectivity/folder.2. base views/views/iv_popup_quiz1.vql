@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW iv_popup_quiz1 FOLDER = '/1. connectivity/2. base views' AS SELECT bv_o_inventory_fact.date_key AS date_key, bv_o_inventory_fact.product_key AS product_key, bv_o_inventory_fact.product_version AS product_version, bv_o_inventory_fact.qty_in_stock AS qty_in_stock, bv_o2_warehouse_dimension.warehouse_key AS warehouse_key, bv_o2_warehouse_dimension.warehouse_name AS warehouse_name, bv_o2_warehouse_dimension.warehouse_address AS warehouse_address, bv_o2_warehouse_dimension.warehouse_city AS warehouse_city, bv_o2_warehouse_dimension.warehouse_state AS warehouse_state, bv_o2_warehouse_dimension.warehouse_region AS warehouse_region FROM bv_o_inventory_fact AS bv_o_inventory_fact INNER JOIN bv_o2_warehouse_dimension AS bv_o2_warehouse_dimension ON bv_o_inventory_fact.warehouse_key = bv_o2_warehouse_dimension.warehouse_key ;
+
+ALTER VIEW iv_popup_quiz1
+ LAYOUT (bv_o_inventory_fact = [20, 20, 200, 200], bv_o2_warehouse_dimension = [418, 32, 200, 200]);
+

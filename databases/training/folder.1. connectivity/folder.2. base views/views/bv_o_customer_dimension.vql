@@ -1,0 +1,89 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_o_customer_dimension
+    FOLDER = '/1. connectivity/2. base views'
+    DATASOURCENAME=ds_oracle
+    SCHEMANAME='${databases.training.folder.1.. connectivity.folder.2.. base views.views.jdbc.bv_o_customer_dimension.SCHEMANAME}' 
+    RELATIONNAME='CUSTOMER_DIMENSION' 
+    OUTPUTSCHEMA (
+        customer_key = 'CUSTOMER_KEY' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='3', sourcetypename='NUMBER')  NOT NULL SORTABLE,
+        customer_type = 'CUSTOMER_TYPE' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='16', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        customer_name = 'CUSTOMER_NAME' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='256', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        customer_gender = 'CUSTOMER_GENDER' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='8', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        title = 'TITLE' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='8', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        household_id = 'HOUSEHOLD_ID' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='3', sourcetypename='NUMBER')  SORTABLE,
+        customer_address = 'CUSTOMER_ADDRESS' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='256', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        customer_city = 'CUSTOMER_CITY' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='64', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        customer_state = 'CUSTOMER_STATE' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='2', sourcetypeid='1', sourcetypename='CHAR')  SORTABLE,
+        customer_region = 'CUSTOMER_REGION' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='64', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        marital_status = 'MARITAL_STATUS' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='32', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        customer_age = 'CUSTOMER_AGE' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='3', sourcetypename='NUMBER')  SORTABLE,
+        number_of_children = 'NUMBER_OF_CHILDREN' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='3', sourcetypename='NUMBER')  SORTABLE,
+        annual_income = 'ANNUAL_INCOME' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='3', sourcetypename='NUMBER')  SORTABLE,
+        occupation = 'OCCUPATION' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='64', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        largest_bill_amount = 'LARGEST_BILL_AMOUNT' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='3', sourcetypename='NUMBER')  SORTABLE,
+        store_membership_card = 'STORE_MEMBERSHIP_CARD' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='3', sourcetypename='NUMBER')  SORTABLE,
+        customer_since = 'CUSTOMER_SINCE' :'java.time.LocalDateTime' (OPT) (sourcetyperadix='10', sourcetypesize='7', sourcetypeid='93', sourcetypename='DATE')  SORTABLE,
+        deal_stage = 'DEAL_STAGE' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='32', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        deal_size = 'DEAL_SIZE' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='3', sourcetypename='NUMBER')  SORTABLE,
+        last_deal_update = 'LAST_DEAL_UPDATE' :'java.time.LocalDateTime' (OPT) (sourcetyperadix='10', sourcetypesize='7', sourcetypeid='93', sourcetypename='DATE')  SORTABLE
+    )
+    CONSTRAINT 'SYS_C007509' PRIMARY KEY ( 'CUSTOMER_KEY' )
+    INDEX 'SYS_C007509' CLUSTER UNIQUE PRIMARY ( 'CUSTOMER_KEY' );
+
+CREATE OR REPLACE TABLE bv_o_customer_dimension I18N us_pst (
+        customer_key:decimal (notnull, sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38'),
+        customer_type:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '16'),
+        customer_name:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '256'),
+        customer_gender:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '8'),
+        title:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '8'),
+        household_id:decimal (sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38'),
+        customer_address:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '256'),
+        customer_city:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '64'),
+        customer_state:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypesize = '2'),
+        customer_region:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '64'),
+        marital_status:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '32'),
+        customer_age:decimal (sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38'),
+        number_of_children:decimal (sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38'),
+        annual_income:decimal (sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38'),
+        occupation:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '64'),
+        largest_bill_amount:decimal (sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38'),
+        store_membership_card:decimal (sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38'),
+        customer_since:timestamp (sourcetypeid = '93', sourcetyperadix = '10', sourcetypesize = '7'),
+        deal_stage:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '32'),
+        deal_size:decimal (sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38'),
+        last_deal_update:timestamp (sourcetypeid = '93', sourcetyperadix = '10', sourcetypesize = '7')
+    )
+    FOLDER = '/1. connectivity/2. base views'
+    CONSTRAINT 'SYS_C007509' PRIMARY KEY ( 'customer_key' )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_o_customer_dimension(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD customer_key (any) OPT ANY
+             ADD customer_type (any) OPT ANY
+             ADD customer_name (any) OPT ANY
+             ADD customer_gender (any) OPT ANY
+             ADD title (any) OPT ANY
+             ADD household_id (any) OPT ANY
+             ADD customer_address (any) OPT ANY
+             ADD customer_city (any) OPT ANY
+             ADD customer_state (any) OPT ANY
+             ADD customer_region (any) OPT ANY
+             ADD marital_status (any) OPT ANY
+             ADD customer_age (any) OPT ANY
+             ADD number_of_children (any) OPT ANY
+             ADD annual_income (any) OPT ANY
+             ADD occupation (any) OPT ANY
+             ADD largest_bill_amount (any) OPT ANY
+             ADD store_membership_card (any) OPT ANY
+             ADD customer_since (any) OPT ANY
+             ADD deal_stage (any) OPT ANY
+             ADD deal_size (any) OPT ANY
+             ADD last_deal_update (any) OPT ANY
+        )
+        OUTPUTLIST (annual_income, customer_address, customer_age, customer_city, customer_gender, customer_key, customer_name, customer_region, customer_since, customer_state, customer_type, deal_size, deal_stage, household_id, largest_bill_amount, last_deal_update, marital_status, number_of_children, occupation, store_membership_card, title
+        )
+        WRAPPER (jdbc bv_o_customer_dimension)
+    );
+
